@@ -1,6 +1,6 @@
-# Proyecto Ppyd
+# Proyecto Programación Paralela y Distribuida
 
-**Grupo:** Valerio Perla, Perea Trinidad
+**Grupo:** Valerio Perla, Perea Trinidad, Longhino Emmanuel
 
 ---
 
@@ -36,18 +36,36 @@ Desarrollar una simulación paralela distribuida de propagación viral en una re
 
 Cada usuario estará en alguno de los siguientes estados:
 
-- **No alcanzado:** El usuario aún no vio el contenido.
-- **Visualizó:** El usuario vio el contenido.
-- **Compartió:** El usuario decidió compartir el contenido.
-- **Ignoró:** El usuario vio el contenido y no hizo nada.
+- **No Alcanzado:** El usuario aún no vio el contenido.
+- **Visualizado:** El usuario vio el contenido.
+- **Compartido:** El usuario decidió compartir el contenido.
+- **Ignorado:** El usuario vio el contenido y no hizo nada.
+
+## Reglas
+- Todos los nodos empiezan en el estado **No Alcanzado**.
+- Se elige un nodo inicial y se cambia su estado a **Compartido**.
+- Nodos con el estado **Compartido** envian a todos sus seguidores el mensaje si poseen el estado **No Alcanzado**.
+- Nodos que reciben el mensaje cambian su estado a **Visualizado**.
+- Nodos con el estado **Visualizado** cambian al estado **Compartido** o **Ignorado** bajo cierta probabilidad.
+- Nodos con el estado **Ignorado** no hacen nada.
+- La simulacion termina cuando no quedan nodos con el estado **Visualizado**.
 
 ## Iteraciones
 
 En cada iteración:
 
-1. Los usuarios que recibieron el contenido podrán decidir compartirlo según una probabilidad determinada.
-2. Si un usuario comparte contenido, este será enviado a sus seguidores.
-3. Los seguidores cambiarán su estado en la siguiente iteración.
+1. Los usuarios que han Visualizado pueden decidir compartir a sus seguidores segun cierta probabilidad.
+2. Si un usuario comparte contenido, pasara a estar en estado Compartido y enviara a todos los usuarios que le siguen.
+3. Si un usuario no comparte contenido, pasara a estar en estado Ignorado.
+4. Todos los seguidores cambian sus estados a Visualizado.
+
+## Criterios de Evaluación
+- Cuanto tiempo tardo en finalizar la simulación.
+- Cuantas iteraciones necesito la simulación.
+- Cuantos nodos poseen el estado **Compartido**.
+- Cuantos nodos poseen el estado **Ignorado**. 
+- Cuantos nodos poseen el estado **No Alcanzado**.
+- Como los anteriores criterios cambian segun la cantidad de Nodos.
 
 ---
 
@@ -86,27 +104,6 @@ Por lo tanto, la propagación depende de:
 - La estructura de la red.
 - Las probabilidades.
 - Qué usuarios comparten.
-
-## Reglas
-- Un usuario inicial arranca y comparte (aleatorio o no)
-- Todos los seguidores de el nodo inicial cambian su estado a visualizado.
-- Segun la probabilidad algunos de esos usuario pasan a estado compartir o a estado ignorar.
-- Usuarios que no esten en estado No alcanzazo -> No disponibles
-- Usuarios en estado No alcanzado-> estado disponible
-
-- 4 estados: No Alcanzado, Visualizado, Compartido, Ignorado
-
-## Condicion de parada
-- Cuando ya no quedan visualizados termina. 
-
-
-## Cosas a evaluar
-- Tiempo.
-- Cuantos Visualizaron y compartieron
-- Cuantos Visualizaron e ignoraron. 
-- Cuantos quedaron en No Alcanzado.
-- Iteraciones alcanzadas.
-
 
 ---
 
