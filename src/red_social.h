@@ -14,10 +14,10 @@
 
 // estados: visto, ignorado, compartido
 typedef enum{
-    NO_ALCANZADO,   // el usuario aun no me el contenido
+    NO_ALCANZADO,   // el usuario aun no ve el contenido
     VISUALIZADO,    // el usuario vio el contenido
     COMPARTIDO,     // el usuario lo compartio
-    IGNORO          // el usuarioo lo vio y no hizo nada
+    IGNORADO        // el usuario lo vio y no hizo nada
 } Estado;
 
 // usuarios: id, estado, seguidores, propabilidad
@@ -39,7 +39,7 @@ typedef struct{
     double tiempo_ejecucion;
 } Estadisticas;
 
-// metodos  autilizar desde secuencial.c y desde paralelo.c
+// metodos a utilizar desde secuencial.c y desde paralelo.c
 void generar_red(Usuario*red, int n)
 void liberar_red(Usuario*red, int n)
 
