@@ -87,6 +87,27 @@ Por lo tanto, la propagación depende de:
 - Las probabilidades.
 - Qué usuarios comparten.
 
+## Reglas
+- Un usuario inicial arranca y comparte (aleatorio o no)
+- Todos los seguidores de el nodo inicial cambian su estado a visualizado.
+- Segun la probabilidad algunos de esos usuario pasan a estado compartir o a estado ignorar.
+- Usuarios que no esten en estado No alcanzazo -> No disponibles
+- Usuarios en estado No alcanzado-> estado disponible
+
+- 4 estados: No Alcanzado, Visualizado, Compartido, Ignorado
+
+## Condicion de parada
+- Cuando ya no quedan visualizados termina. 
+
+
+## Cosas a evaluar
+- Tiempo.
+- Cuantos Visualizaron y compartieron
+- Cuantos Visualizaron e ignoraron. 
+- Cuantos quedaron en No Alcanzado.
+- Iteraciones alcanzadas.
+
+
 ---
 
 # Alcance del proyecto
