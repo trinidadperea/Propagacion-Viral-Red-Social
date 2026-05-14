@@ -134,17 +134,17 @@ La primera etapa del proyecto será desarrollar la versión secuencial completa 
 ## Estructuras principales
 
 ### Usuario
-
-- id
-- estado actual
-- lista de conexiones
-- probabilidad de compartir
-
-### Red Social
-
-- Lista de usuarios: `[A, B, C, D]`
-- Lista con las conexiones: `[A: B, C]`
-
+```
+Usuario.ID
+Usuario.Estado : [No_Alcanzado , Visualizado , Compartido , Ignorado]
+Usuario.Seguidores : Lista de Usuarios
+Usuario.Probabilidad = Probabilidad_Global
+```
+### Ejemplo de Red Social
+```
+Arreglo_Usuarios: [A, B, C, D]
+A.Seguidores: [B, C]
+```
 Esto representa que el usuario A tiene como seguidores a B y C.
 
 ---
@@ -158,9 +158,33 @@ Generar la red:
 - Crear usuarios.
 - Crear conexiones aleatorias.
 
+```
+N = Cantidad Usuarios
+M = Cantidad Maxima Seguidores
+ArregloUsuarios = Arreglo(Usuario, N)
+Para Length(ArregloUsuarios) con I:
+  ArregloUsuarios.ID = I
+  ArregloUsuarios.Estado = NoAlcanzado
+  ArregloUsuarios.Seguidores = RandomNumberSet(Cant: RandomNumber(0,M), Min: 0, Max: Length(ArregloUsuarios))
+  ArregloUsuarios.Probabilidad = K (K siendo una variable global entre 0 y 1)
+CantNoAlcanzados = Length(ArregloUsuarios)
+CantCompartidos = 0
+CantIgnorados = 0
+```
+
 ## Paso 2
 
 Seleccionar un usuario inicial que comparte el contenido.
+
+```
+UsuarioInicial = RandomNumber(Length.Arreglo_Usuarios)
+Arreglo_Usuarios[UsuarioInicial].Estado = Compartido
+CantNoAlcanzados--
+CantCompartidos++
+Para Length(Arreglo_Usuarios[UsuarioInicial].Seguidores) con I:
+  Arreglo_Usuarios[Arreglo_Usuarios[UsuarioInicial].Seguidores[I]].Estado = Visualizado
+  CantNoAlcanzados--
+```
 
 ## Paso 3: Iteraciones
 
@@ -172,6 +196,21 @@ Por cada iteración:
 4. Actualizar estados.
 5. Registrar estadísticas.
 
+```
+Para Length(ArregloUsuarios) con I:
+  Si ArregloUsuarios[I].Estado == Visualizado:
+    Comparto = RandomNumber(0, 1)
+    Si ArregloUsuarios[I].Probabilidad >= Comparto:
+      ArregloUsuarios[I].Estado = Compartido
+      CantCompartidos++
+      Para Length(ArregloUsuarios[I].Seguidores) con O:
+        Si Arreglo_Usuarios[Arreglo_Usuarios[I].Seguidores[O]].Estado == NoAlcanzado:
+          Arreglo_Usuarios[Arreglo_Usuarios[I].Seguidores[O]].Estado = Visualizado
+          CantNoAlcanzados--
+    Sino:
+      ArregloUsuarios[I].Estado = Ignorado
+      CantidadIgnorados++
+```
 ---
 
 # Resultados de la versión secuencial
