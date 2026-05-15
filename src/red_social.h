@@ -14,10 +14,11 @@
 
 // estados: visto, ignorado, compartido
 typedef enum{
-    NO_ALCANZADO,   // el usuario aun no me el contenido
-    VISUALIZADO,    // el usuario vio el contenido
-    COMPARTIDO,     // el usuario lo compartio
-    IGNORO          // el usuarioo lo vio y no hizo nada
+    NO_ALCANZADO,   // el usuario aun no me el contenido (0)
+    VISUALIZADO,    // el usuario vio el contenido (1)
+    COMPARTIDO,     // el usuario lo compartio (2)
+    IGNORO,        // el usuarioo lo vio y no hizo nada (3)
+    ALCANZADO       // el usuario ya compartio, no puede volver a hacerlo
 } Estado;
 
 // usuarios: id, estado, seguidores, propabilidad
@@ -26,8 +27,8 @@ typedef struct{
     Estado estado_actual;
     Estado estado_siguiente; // estado actualizado luego de ver el contenido
     int *seguidores; // lista con los usuarios que lo siguen
-    int cant_seguidores // tamaño de la lista de los seguidores
-    float probabilidad_compartir // un valor entre (0 y 1)
+    int cant_seguidores; // tamaño de la lista de los seguidores
+    float probabilidad_compartir; // un valor entre (0 y 1)
 } Usuario;
 
 // constantes: nro total de usuarios, probabilidad base 
@@ -40,7 +41,7 @@ typedef struct{
 } Estadisticas;
 
 // metodos  autilizar desde secuencial.c y desde paralelo.c
-void generar_red(Usuario*red, int n)
-void liberar_red(Usuario*red, int n)
+void generar_red(Usuario*red, int n);
+void liberar_red(Usuario*red, int n);
 
 #endif
